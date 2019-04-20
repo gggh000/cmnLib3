@@ -383,7 +383,8 @@ class pcie():
             if debug:
                 printDbg("iter | vNIC line: " + str(counter) + " | " + str(vNIC))
                 printDbg("vNIC split line: ", debug)
-print(vNIC.split())
+                print vNIC.split()
+
             if len(vNIC) and re.search('00:25', vNIC):            
                 if not vNIC.split()[0] in pcieVnics:
                     printDbg("deleting this vnic: " + vNIC.split()[0])
@@ -469,7 +470,8 @@ print(vNIC.split())
                     ethNames.append("pcieVnic-" + str(vnicPlacementNo) + "-" + str(k))
 
                 printDbg("setting ethNames to ", debug)
-print(ethNames)                self.testVnics.append(ethNames)
+                print ethNames
+                self.testVnics.append(ethNames)
             else:
                 counter += 1
                 continue
@@ -1639,7 +1641,8 @@ print(ethNames)                self.testVnics.append(ethNames)
             printErr("Input validation failed.")
             return EXIT_ERR
         
-print(type(range1))
+        print type(range1)
+
         # Boot to efi shell.
 
         if pFi.mSp.bootEfiShellThruBp(pFi) == EXIT_ERR:
@@ -1665,10 +1668,13 @@ print(type(range1))
                 int(range1[2], 16)
             except (ValueError, NameError, TypeError):
                 for i in sys.exc_info():
-print(i)                printErr("Unable to read the bus numbers retry No. " + str(counter))
-print(range1)                range1 = ['','','']
+                    print i
+                printErr("Unable to read the bus numbers retry No. " + str(counter))
+                print range1
+                range1 = ['','','']
                 printDbg("bus range after reset: ", debug)
-print(range1)                counter += 1
+                print range1
+                counter += 1
                 
                 if counter > CONFIG_RETRY_READ:
                     printErr("Unable to read the bus numbers for 5 times, giving up.")
@@ -1679,6 +1685,7 @@ print(range1)                counter += 1
         printDbg("Range found: primary, seconday and subordinate: ", debug)
 
         if debug:
-print(type(range1))            printSeq(range1)
+            print type(range1)
+            printSeq(range1)
         return range1
         
