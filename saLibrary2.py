@@ -71,14 +71,17 @@
 #   printDoubleBar
 #   printSeq
 #   
-#   Following functions are helper class functions to be called by the other print(functions mentioned above, therefore)#   it is not recommended to call 'em directly:
+#   Following functions are helper class functions to be called by the other print functions mentioned above, therefore
+#   it is not recommended to call 'em directly:
 #   
 #   printToFile
 #   printToFileL1
 #   printToFileL2
 #   printToFileL3
 #   
-#   When helper class functions mentioned above are not used by certain print(functions, then their output is not)#   logged to any log file. Those functions use python's standard print(function and therefore their output can)#   only be captured from stdout terminal:
+#   When helper class functions mentioned above are not used by certain print functions, then their output is not 
+#   logged to any log file. Those functions use python's standard print function and therefore their output can
+#   only be captured from stdout terminal:
 #
 #   printAttn
 
@@ -321,7 +324,8 @@ class colors:
     PURPLE = '\033[95m'
     GRAY = '\033[90m'
 
-#   Used in certain print(function, the amount of text width cutoff to align the caller and function)#   name part of the printout.
+#   Used in certain print function, the amount of text width cutoff to align the caller and function
+#   name part of the printout.
 
 CONFIG_CALLER_FILE_CUTOFF_LEN = 20
 COFNIG_CALLER_FUNCTION_CUTOFF_LEN = 25
@@ -497,7 +501,8 @@ def prepArgs(pSysArgv, pSupportedArgs, helpStringArr):
 
             if not type(pSupportedArgs.values()[idx]) == tuple:
                 printErr("Wrong type for supported Arg values: ")
-print(type(pSupportedArgs.values()[idx]))                return EXIT_ERR
+                print type(pSupportedArgs.values()[idx])
+                return EXIT_ERR
 
             # If value is none then this specific parameters takes no values,
             # If not none, process further.
@@ -567,8 +572,10 @@ print(type(pSupportedArgs.values()[idx]))                return EXIT_ERR
                         
                             # Special parameters where user input does not have to match the pre-defined values for specific param-s. 
                             
-print("Checking if ", m, " in the range...")                            printErr(pSysArgv[i] + ":" + str(m) + " is not in the accepted range of values: ")
-print(currParamSuppValues)                            return EXIT_ERR
+                            print "Checking if ", m, " in the range..."
+                            printErr(pSysArgv[i] + ":" + str(m) + " is not in the accepted range of values: ")
+                            print currParamSuppValues
+                            return EXIT_ERR
                     elif argCheckFlag == RANGE_CHECK:
                         printDbg("Range check...", debug)
 
@@ -588,12 +595,14 @@ print(currParamSuppValues)                            return EXIT_ERR
                     values = pSysArgv[i+1:idxEndAbs]
                 
                     printDbg("values/pSysArgv[" + str(i+1) + ":" + str(idxEndAbs) +  "]: ", debug)
-print(values)
+                    print values
+
                 pSupportedArgs[pSysArgv[i]] = values
 
                 if debug:
                     printDbg("pSupportedArgs at the end of this loop: ", debug)
-print(pSupportedArgs)        else:
+                    print pSupportedArgs
+        else:
             printDbg("Not starting with --, doing add'l check.", debug)
 
             # If current keyword does not start withh --, then we need to do an add'l check, before skipping:
@@ -672,7 +681,8 @@ def bmcGpioRead(pBlade, pBmcConsole, pGpioFile):
         
         if debug: 
             printDbg("return as split: ")
-print(ret1.split())        try:
+            print ret1.split()
+        try:
             if re.search("telnetlib", pBmcConsole.__module__):
                 ret1 = int(ret1.split()[-7])
             else:
@@ -821,7 +831,8 @@ def parseMemStruct(pBlade, pAddress, pPcie_inst, pNames, pSizes, pOffsets = None
     printDbg("Struct data collected: ", debug)
 
     for i in pNames:
-print(i + ": " + lDictStructData[i])
+        print i + ": " + lDictStructData[i]
+
     return lDictStructData
 
 # Prints single or double bar to summary log file.
@@ -1067,7 +1078,8 @@ def read_msr(pBmcSsh, pMsr, pStrict = 1):
     
     if debugL2:
         for i in outpTokens1:
-print(outpTokens1)
+            print outpTokens1
+
     lenOutpTokens = len(outpTokens)
     lenOutpTokens1 = len(outpTokens1)
 
@@ -1101,7 +1113,8 @@ print(outpTokens1)
                 return EXIT_ERR
 
     printDbg("Returning: ", debug)
-print( [msrCore0Value, lenOutpTokens1])    return [msrCore0Value, lenOutpTokens1]
+    print  [msrCore0Value, lenOutpTokens1]
+    return [msrCore0Value, lenOutpTokens1]
 
 #   Implements uniform management of test return values, maintains the return status value across various test phases. 
 #   Through out test script execution, various condition requires to change/update the FINAL return state, 
@@ -1378,7 +1391,8 @@ def setRunTimeVar(pFileName, pItem, pValue, pValidDelim= "=", pCreate=1):
             printDbg("Exception occurred, empty or invalid char in the line read. Terminating...", debugL2)
 
             if debug:
-print(msg)
+                print msg
+
         # Search for valid delimiter. The format must always be pItem=pValue.
         # 1. If current line is valid
         #   a. if the line is searched Entered: then replace.
@@ -1713,7 +1727,8 @@ def getReqListHelp(pFpConfig, pKeyReq):
         counter += 1
 
         if counter > CONFIG_REQUIREMENT_MAX_LINES:
-print("Warning! over " + str(CONFIG_REQUIREMENT_MAX_LINES) + " lines read from REQUIREMENT_LIST section. Leaving.")            return EXIT_ERR
+            print "Warning! over " + str(CONFIG_REQUIREMENT_MAX_LINES) + " lines read from REQUIREMENT_LIST section. Leaving."
+            return EXIT_ERR
 
     printDbg("Requirement list fetching is complete: ", debug)
 
@@ -1893,7 +1908,10 @@ def getUnEncPw(pPw):
     CONFIG_SHOW_PW = 0
     
     if CONFIG_SHOW_PW:
-print("WARNING!!!, CONFIG_SHOW_PW = 1, meaning unencrypted password might be shown during script execution and")print("also log files will contain unencrypted password. Press 1 to confirm and continue. After done executing script")print("make sure clean up the log file!!! This option is purely for debugging purpose!!!")
+        print "WARNING!!!, CONFIG_SHOW_PW = 1, meaning unencrypted password might be shown during script execution and"
+        print "also log files will contain unencrypted password. Press 1 to confirm and continue. After done executing script"
+        print "make sure clean up the log file!!! This option is purely for debugging purpose!!!"
+
         while 1:
             option = raw_input("Choose 1 for continue, 2 for setting the CONFIG_SHOW_PW back to 0 and return astericks only: ")
 
@@ -1903,7 +1921,8 @@ print("WARNING!!!, CONFIG_SHOW_PW = 1, meaning unencrypted password might be sho
                 CONFIG_SHOW_PW = 0
                 return "*****"
             else:
-print("Invalid option.")        return pPw
+                print "Invalid option."
+        return pPw
     else:
         return "****"
 
@@ -2205,7 +2224,8 @@ def getConfigDictionary(pFpConfig):
         counter += 1
 
         if counter > CONFIG_REQUIREMENT_MAX_LINES:
-print("Warning! over " + str(CONFIG_REQUIREMENT_MAX_LINES) + " lines read from GLOBAL_CONFIGURATION section. Leaving...")            return EXIT_ERR
+            print "Warning! over " + str(CONFIG_REQUIREMENT_MAX_LINES) + " lines read from GLOBAL_CONFIGURATION section. Leaving..."
+            return EXIT_ERR
 
     printDbg("Global configuration is complete: ", debug)
 
@@ -2219,7 +2239,8 @@ print("Warning! over " + str(CONFIG_REQUIREMENT_MAX_LINES) + " lines read from G
 #   - None.
 #   input:  
 #   - pSeq - sequence to print.
-#   - pWidth - number of items in a sequence to print(per single row.)#   return: None
+#   - pWidth - number of items in a sequence to print per single row. 
+#   return: None
 
 def fprintSeq(pSeq, pWidth = None):
     printSeq(pSeq, pWidth, 1)
@@ -2230,7 +2251,8 @@ def fprintSeq(pSeq, pWidth = None):
 #   - None
 #   input:  
 #   - pSeq -  List, tuple or dictionary data type to print.
-#   - pWidth - number of items in the sequence to print(per single row.)#   - pToFile - if set to 1, output to summary log file
+#   - pWidth - number of items in the sequence to print per single row.
+#   - pToFile - if set to 1, output to summary log file
 #             - if set to 0, then do not output to summary file.
 #   return: 
 #   - None
@@ -2281,7 +2303,8 @@ def printSeq(pSeq, pWidth = None, pToFile = 0):
             for j in range(0, len(keys)):
                 str1 += str(keys[j]) + ": "  + str(values[j]) + ", "
         
-print(str1)
+            print str1
+
             if pToFile:
                 printToFile(str(str1))
 
@@ -2293,7 +2316,8 @@ print(str1)
             for j in range(0, len(keys)):
                 str1 += str(keys[j]) + ": "  + str(values[j]) + ", "
         
-print(str1)
+            print str1
+
             if pToFile:
                 printToFile(str(str1))
 
@@ -2306,12 +2330,14 @@ print(str1)
         # Print sequence, separate lines by PRINT_SEQ_COL_WIDTH. 
         
         for i in range(0, len(pSeq) / PRINT_SEQ_COL_WIDTH):
-print(pSeq[i*PRINT_SEQ_COL_WIDTH:i*PRINT_SEQ_COL_WIDTH + PRINT_SEQ_COL_WIDTH])
+            print pSeq[i*PRINT_SEQ_COL_WIDTH:i*PRINT_SEQ_COL_WIDTH + PRINT_SEQ_COL_WIDTH]
+
             if pToFile:
                 printToFile(str(pSeq[i*PRINT_SEQ_COL_WIDTH:i*PRINT_SEQ_COL_WIDTH + PRINT_SEQ_COL_WIDTH]))
 
         if len(pSeq) % PRINT_SEQ_COL_WIDTH  != 0:
-print(pSeq[len(pSeq) - len(pSeq) % PRINT_SEQ_COL_WIDTH:])
+            print pSeq[len(pSeq) - len(pSeq) % PRINT_SEQ_COL_WIDTH:]
+
             if pToFile:
                 printToFile(str(pSeq[len(pSeq) - len(pSeq) % PRINT_SEQ_COL_WIDTH:]))
 
@@ -2366,7 +2392,9 @@ def printToFile(pString, pLoopNo = -1, pCallerString = None, verboseFileNames = 
     tmpLogFileList = None
 
     if debug:
-print("----------------------------------------")print("printToFile: entered: pString: ", pString.strip(), ", pLoopNo: ", pLoopNo, ", pCallerString: ", pCallerString)
+        print "----------------------------------------"
+        print "printToFile: entered: pString: ", pString.strip(), ", pLoopNo: ", pLoopNo, ", pCallerString: ", pCallerString
+
     # Declare name of log files with varying verbosity.
 
     tmpLogFileName1 = PYTHON_ROOT_DIR + "/log/tmp." + str(os.getpid()) + ".summary.log"
@@ -2387,16 +2415,19 @@ print("----------------------------------------")print("printToFile: entered: pS
             printErr("verboseFileNames must be included in tmpLogFileList\
             \n verboseFileNames: " + str(verboseFileNames) + ", \
             \n tmpLogFileList: " + str(tmpLogFileList))
-print(msg)            return EXIT_ERR
+            print msg
+            return EXIT_ERR
         tmpLogFileList = tmpLogFileList[idx:]
 
     if debug:
-print("tmpLogFileList: ", tmpLogFileList)    
+        print "tmpLogFileList: ", tmpLogFileList
+    
     # Determine file name and function name of caller.
 
     for tmpLogFileName in tmpLogFileList:
         if debug:
-print("Processing for :", tmpLogFileName)
+            print "Processing for :", tmpLogFileName
+
         if pCallerString == None:
             caller1Fcn = inspect.stack()[1][3]
             caller1File = inspect.stack()[1][1].split('/')[-1]
@@ -2408,18 +2439,21 @@ print("Processing for :", tmpLogFileName)
     
         if not os.path.exists(tmpLogFileName):
             if debug:
-print("printToFile: tmp file does not exist, opening for writing", debug)
+                print "printToFile: tmp file does not exist, opening for writing", debug
+
             os.system("touch tmpLogFileName")
             fpTempLog = open(tmpLogFileName, 'w')
         else:
             if debug:
-print("printToFile: tmp file does exist, opening for read/writing")
+                print "printToFile: tmp file does exist, opening for read/writing"
+
             # pLoopNo is positive, then write ": <pLoopNo>"
             # pLoopNo is None, then write ": noLoopNo? "
             # pLoopNo is negative, then simply write the actual reason.
 
             if debug:
-print("printToFile: pLoopNo processing...")
+                print "printToFile: pLoopNo processing..."
+
             fpTempLog = open(tmpLogFileName, 'r+')
             bufferAllLines = fpTempLog.read()
 
@@ -2428,14 +2462,21 @@ print("printToFile: pLoopNo processing...")
                 # Determine if it has been printed before (controls flooding).
     
                 if debug:
-print("Determining whether it has been printed before...")print("bufferAllLines: ", bufferAllLines)print("lString: ", lString)    
+                    print "Determining whether it has been printed before..."
+                    print "bufferAllLines: ", bufferAllLines
+                    print "lString: ", lString
+    
                 for buffer in bufferAllLines:
                     try:
                         searchPattern = re.sub("\(|\)|\\\\",".", str(lString))
                         #if re.search(searchPattern, buffer, re.DOTALL):
-#    print("printTofile: tmp duplicate entry")    
+                        #    print "printTofile: tmp duplicate entry"
+    
                     except Exception as exception1:
-print("printToFile!!!: Exception occurred during lString re.sub...")print("printToFile: ", lString)print(exception1)                        return EXIT_ERR
+                        print "printToFile!!!: Exception occurred during lString re.sub..."
+                        print "printToFile: ", lString
+                        print exception1
+                        return EXIT_ERR
     
                 printDbg("writing loopNo instead of input string", debug)
                 fpTempLog.write(" : " + str(pLoopNo))
@@ -2445,7 +2486,8 @@ print("printToFile!!!: Exception occurred during lString re.sub...")print("print
             elif pLoopNo < 0:
 
                 if debug:
-print("printToFile: writing actual input string ")
+                    print "printToFile: writing actual input string "
+
                 fpTempLog.write("\n" + lString)
 
                 fpTempLog.close()
@@ -2474,10 +2516,12 @@ print("printToFile: writing actual input string ")
 def printWarnMinor(pString, pLoopNo=-1):
     caller1Fcn = inspect.stack()[1][3]
     caller1File = inspect.stack()[1][1].split('/')[-1]
-print(colors.WARNING + "    " + caller1File + "/" + caller1Fcn + ":WARN: " + str(pString) + colors.ENDC)    printToFileL1("- Warning: " + pString, pLoopNo, " (" + caller1File + "/" + caller1Fcn + ")")
+    print colors.WARNING + "    " + caller1File + "/" + caller1Fcn + ":WARN: " + str(pString) + colors.ENDC
+    printToFileL1("- Warning: " + pString, pLoopNo, " (" + caller1File + "/" + caller1Fcn + ")")
     printToFileL2("- Warning: " + pString, pLoopNo, " (" + caller1File + "/" + caller1Fcn + ")")
 
-#   Following 3 functions, printWarn, printErr, printFail will respectively print(warning, error and fail messages)#   outputting to log file. Warning is not necessarily error message and potentially can be error condition.
+#   Following 3 functions, printWarn, printErr, printFail will respectively print warning, error and fail messages
+#   outputting to log file. Warning is not necessarily error message and potentially can be error condition.
 #   Error is a definite error but not necessarily causes the script end result to fail although possibly so.
 #   Fail is a definite failure message that certainly causes script end result to fail. 
 #
@@ -2502,7 +2546,9 @@ def printWarn(pString, pLoopNo=-1):
 
     caller1Fcn = inspect.stack()[1][3]
     caller1File = inspect.stack()[1][1].split('/')[-1]
-#print("    " + caller1File + "/" + caller1Fcn + ":WARN: " + str(pString))print(colors.WARNING + "    " + (caller1File[0:CONFIG_CALLER_FILE_CUTOFF_LEN-1]).ljust(CONFIG_CALLER_FILE_CUTOFF_LEN, \)        ".") + "/" + caller1Fcn.ljust(COFNIG_CALLER_FUNCTION_CUTOFF_LEN, ".") + \
+    #print "    " + caller1File + "/" + caller1Fcn + ":WARN: " + str(pString)
+    print colors.WARNING + "    " + (caller1File[0:CONFIG_CALLER_FILE_CUTOFF_LEN-1]).ljust(CONFIG_CALLER_FILE_CUTOFF_LEN, \
+        ".") + "/" + caller1Fcn.ljust(COFNIG_CALLER_FUNCTION_CUTOFF_LEN, ".") + \
         ": WARN: " + str(pString) + colors.ENDC
 
     if str(warnConfigName):
@@ -2520,10 +2566,12 @@ def printErr(pString, pLoopNo=-1, pErrLevel = ERROR_LEVEL_ERROR):
     caller1File = inspect.stack()[1][1].split('/')[-1]
 
     if pErrLevel == ERROR_LEVEL_WARN_MINOR:
-print(colors.WARNING + "    " + (caller1File[0:COFNIG_CALLER_FUNCTION_CUTOFF_LEN-1]).ljust(CONFIG_CALLER_FILE_CUTOFF_LEN, \)            ".") + "/" + caller1Fcn.ljust(COFNIG_CALLER_FUNCTION_CUTOFF_LEN, ".") + \
+        print colors.WARNING + "    " + (caller1File[0:COFNIG_CALLER_FUNCTION_CUTOFF_LEN-1]).ljust(CONFIG_CALLER_FILE_CUTOFF_LEN, \
+            ".") + "/" + caller1Fcn.ljust(COFNIG_CALLER_FUNCTION_CUTOFF_LEN, ".") + \
             ": WARN : " + str(pString) + colors.ENDC
     else:
-print(colors.FAIL + "    " + (caller1File[0:COFNIG_CALLER_FUNCTION_CUTOFF_LEN-1]).ljust(CONFIG_CALLER_FILE_CUTOFF_LEN, \)            ".") + "/" + caller1Fcn.ljust(COFNIG_CALLER_FUNCTION_CUTOFF_LEN, ".") + \
+        print colors.FAIL + "    " + (caller1File[0:COFNIG_CALLER_FUNCTION_CUTOFF_LEN-1]).ljust(CONFIG_CALLER_FILE_CUTOFF_LEN, \
+            ".") + "/" + caller1Fcn.ljust(COFNIG_CALLER_FUNCTION_CUTOFF_LEN, ".") + \
             ": ERR : " + str(pString) + colors.ENDC
     
     if str(errConfigName):
@@ -2534,14 +2582,17 @@ print(colors.FAIL + "    " + (caller1File[0:COFNIG_CALLER_FUNCTION_CUTOFF_LEN-1]
 def printFail(pString, pLoopNo=-1):
     caller1Fcn = inspect.stack()[1][3]
     caller1File = inspect.stack()[1][1].split('/')[-1]
-print("    " + caller1File + "/" + caller1Fcn + ":FAIL: " + str(pString))    printToFile("- Fail: " + pString, pLoopNo, " (" + caller1File + "/" + caller1Fcn + ")")
+    print "    " + caller1File + "/" + caller1Fcn + ":FAIL: " + str(pString)
+    printToFile("- Fail: " + pString, pLoopNo, " (" + caller1File + "/" + caller1Fcn + ")")
 
 #   Prints variable name along its values.
 #   req:    
 #   - None.
 #   input:  
-#   - pVarArray - array of variables to print(its variable name and value.)#   - debug - if set, display the debug output otherwise suppress.
-#   - pOnePerLine - if set (default, print(one variable per line, otherwise will print(sequentially))#   return: 
+#   - pVarArray - array of variables to print its variable name and value.
+#   - debug - if set, display the debug output otherwise suppress.
+#   - pOnePerLine - if set (default, print one variable per line, otherwise will print sequentially)
+#   return: 
 #   - None.
 
 def printVars(pVarArray, pDebug = 1, pOnePerLine = 1):
@@ -2589,13 +2640,15 @@ def printVars(pVarArray, pDebug = 1, pOnePerLine = 1):
     printDbg("3. lVarNames after removing extracting var names: " + str(lVarNames), debug)
 
     if debug:
-print(lVarNames)        printDbg("lVarnames len: " + str(len(lVarNames)) + ", pVarArray len " + str(len(pVarArray)), debug)
+        print lVarNames
+        printDbg("lVarnames len: " + str(len(lVarNames)) + ", pVarArray len " + str(len(pVarArray)), debug)
 
     for i in range(0, len(pVarArray)):
         finalOut[lVarNames[i]] = str(pVarArray[i])
 
     if debug:
-print("    " + str(caller1File) + "/" + str(caller1Fcn) + ": ")
+        print "    " + str(caller1File) + "/" + str(caller1Fcn) + ": "
+
     if pOnePerLine:
         for i in range(0, len(finalOut)):
             if debug:
@@ -2604,8 +2657,11 @@ print("    " + str(caller1File) + "/" + str(caller1Fcn) + ": ")
                 printN(str(finalOut.keys()[i]) + ": " + str(finalOut.values()[i]))
 
     else:
-print(finalOut)
-# This is purely debugging section, in order to print(most of the caller stack information.)# Caller stack seems to be 2-d array. If particular index does not exist, print(indexerror after)    # throwing exception.
+        print finalOut
+
+    # This is purely debugging section, in order to print most of the caller stack information.
+    # Caller stack seems to be 2-d array. If particular index does not exist, print indexerror after 
+    # throwing exception.
 
     if debugL3:
         printDbg("stack info:")
@@ -2667,8 +2723,11 @@ def printVar(pVar, pDebug = 1, pToFile = 1):
         printDbg("group error. [1][4]:" + str(stack14))
         return EXIT_ERR
 
-#print("    " + caller1File + "/" + caller1Fcn + ": " + str(lVarName) + ": " + str(lVarValue))
-# This is purely debugging section, in order to print(most of the caller stack information.)# Caller stack seems to be 2-d array. If particular index does not exist, print(indexerror after)    # throwing exception.
+    #print "    " + caller1File + "/" + caller1Fcn + ": " + str(lVarName) + ": " + str(lVarValue)
+
+    # This is purely debugging section, in order to print most of the caller stack information.
+    # Caller stack seems to be 2-d array. If particular index does not exist, print indexerror after 
+    # throwing exception.
 
     if debugL2:
         printDbg("stack info:")
@@ -2694,7 +2753,8 @@ def printVar(pVar, pDebug = 1, pToFile = 1):
 def printInfo(pString, pLoopNo = -1):
     caller1Fcn = inspect.stack()[1][3]
     caller1File = inspect.stack()[1][1].split('/')[-1]
-print(colors.LIBLUE + "    " + caller1File + "/" + caller1Fcn + ":INFO: " + str(pString) + colors.ENDC)    printToFileL2("- Info: " + pString,     pLoopNo, " (" + caller1File + "/" + caller1Fcn + ")")
+    print colors.LIBLUE + "    " + caller1File + "/" + caller1Fcn + ":INFO: " + str(pString) + colors.ENDC
+    printToFileL2("- Info: " + pString,     pLoopNo, " (" + caller1File + "/" + caller1Fcn + ")")
 
 #   Exactly same function as printDbg but without any prefix in front.
 #   input: 
@@ -2714,7 +2774,8 @@ print(colors.LIBLUE + "    " + caller1File + "/" + caller1Fcn + ":INFO: " + str(
 def printInfoToFile(pString, pLoopNo = -1):
     caller1Fcn = inspect.stack()[1][3]
     caller1File = inspect.stack()[1][1].split('/')[-1]
-print(colors.LIBLUE + "    " + caller1File + "/" + caller1Fcn + ":INFO: " + str(pString) + colors.ENDC)    printToFile("- Info: " + pString,     pLoopNo, " (" + caller1File + "/" + caller1Fcn + ")")
+    print colors.LIBLUE + "    " + caller1File + "/" + caller1Fcn + ":INFO: " + str(pString) + colors.ENDC
+    printToFile("- Info: " + pString,     pLoopNo, " (" + caller1File + "/" + caller1Fcn + ")")
 
 #   Exactly same function as printDbg but without any prefix in front.
 #   input: 
@@ -2729,7 +2790,8 @@ def printN(pString, debug=1, pToFile = 1):
         caller1File = inspect.stack()[1][1].split('/')[-1]
         caller2File = (caller1File[0:CONFIG_CALLER_FILE_CUTOFF_LEN-1]).ljust(CONFIG_CALLER_FILE_CUTOFF_LEN, ".")
         caller2Fcn =  caller1Fcn.ljust(COFNIG_CALLER_FUNCTION_CUTOFF_LEN, ".")
-print("     " + str(pString))
+        print "     " + str(pString)
+
         if pToFile:
             printToFileL2(str(pString), -1)
 
@@ -2748,7 +2810,8 @@ def printDbg(pString, debug=1):
 
         caller2File = (caller1File[0:CONFIG_CALLER_FILE_CUTOFF_LEN-1]).ljust(CONFIG_CALLER_FILE_CUTOFF_LEN, ".")
         caller2Fcn =  caller1Fcn.ljust(COFNIG_CALLER_FUNCTION_CUTOFF_LEN, ".")
-print("    " + caller2File + \)            "/" + caller2Fcn + ": DBG: " + str(pString)
+        print "    " + caller2File + \
+            "/" + caller2Fcn + ": DBG: " + str(pString)
 
         printToFileL2(pString.ljust(130), -1, " (" + caller2File + "/" + caller2Fcn + ")")
 
@@ -2833,8 +2896,10 @@ def validateInput(pArgv, pInputMap, pHelpStringArr, pReqCodeList = None):
     printDbg("pArgv len:     " + str(len(pArgv)), debug)
     printDbg("pInputMap len: " + str(len(pInputMap)),debug)
     printDbg("pArgv value:",  debug)
-print(pArgv)    printDbg("pInputMap value:", debug)
-print(pInputMap)
+    print pArgv
+    printDbg("pInputMap value:", debug)
+    print pInputMap
+
     # if No. of arguments is 1, then it must be either --help or --req.
     # In case of help, display help message, otherwise gather requirement
     # for this particular script and return it. In case of any other parameter
@@ -2908,7 +2973,8 @@ def printHelp(pHelpString):
     helpString = pHelpString.split("::")
 
     for i in helpString:
-print("  " + i)
+        print "  " + i
+
 #   Display prerequisites list in a preformatted way.
 #   Prerequites are the list of requirements that are needed to be met before
 #   running particular test script. Each scripts has its own unique set of requirements.
@@ -2926,12 +2992,24 @@ def dispPrereq(pPreReqList):
         TIMEOUT_PREREQ_DISPLAY = 10
 
     preReqList = None
-print("  ====================================================================================")print("  SCRIPT: " + str(sys.argv[0]))print("  ------------------------------------------------------------------------------------")print("  Before running verify following requirements are met:")print("  ------------------------------------------------------------------------------------")
+    print "  ===================================================================================="
+    print "  SCRIPT: " + str(sys.argv[0])
+    print "  ------------------------------------------------------------------------------------"
+    print "  Before running verify following requirements are met:"
+    print "  ------------------------------------------------------------------------------------"
+
     preReqDict = getReqList(pPreReqList)
 
     for i in preReqDict:
-print("     - " + preReqDict[i])
-print("")print("  If all above prereq is met, wait and do nothing and test will resume in 30 seconds.")print("  If any of the prereq is not, test will likely end prematurely, therefore use Ctrl+C ")print("  to terminate and satisfy all requirement above and restart the test.")print("  Use --help parameter for usage.")print("  ------------------------------------------------------------------------------------")    time.sleep(TIMEOUT_PREREQ_DISPLAY)
+        print "     - " + preReqDict[i]
+
+    print ""
+    print "  If all above prereq is met, wait and do nothing and test will resume in 30 seconds."
+    print "  If any of the prereq is not, test will likely end prematurely, therefore use Ctrl+C "
+    print "  to terminate and satisfy all requirement above and restart the test."
+    print "  Use --help parameter for usage."
+    print "  ------------------------------------------------------------------------------------"
+    time.sleep(TIMEOUT_PREREQ_DISPLAY)
 
 #   Send linux shell command over ssh connection. 
 #   req:
@@ -4018,7 +4096,8 @@ def cli_with_ret(pConsole, pCommand, pPrompt, pShellType='ucsmCli', pWaitCycles 
 
             elif index1 == 3 or index1 == 4:
                 printErr("efishell: Unable to find the command or application: " + str(pCommand.split()[0]) )
-print(pCommand.split())                return EXIT_ERR
+                print pCommand.split()
+                return EXIT_ERR
             elif index1 == 5 or index1 == 6 or index1 == 7 or index1 == 8:
                 printDbg("efishell: Skipping any startup program..")
                 pConsole.sendline('\r')
@@ -4031,7 +4110,8 @@ print(pCommand.split())                return EXIT_ERR
                 printDbg("efishell: 3. FinalOut at index 10: " + str(finalOut), debugCli)
                 printDbg("efishell: ---------------------", debugL2Efi)
                 printDbg("efishell: 4. FinalOut at exit:" + str(finalOut), debugCli)
-print(finalOut)                printDbg("efishell: ---------------------", debugL2Efi)
+                print finalOut
+                printDbg("efishell: ---------------------", debugL2Efi)
                 time.sleep(1)
                 return finalOut
             else:
@@ -4164,7 +4244,8 @@ print(finalOut)                printDbg("efishell: ---------------------", debug
         printErr("Unknown shell type. Can not continue.")
         return EXIT_ERR
 
-#   print(Help for BIOS update script. It is only for bios.update.py only.)#   input:  
+#   print Help for BIOS update script. It is only for bios.update.py only.
+#   input:  
 #   - None.
 #   return: 
 #   - None.

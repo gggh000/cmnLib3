@@ -60,7 +60,9 @@ def getPw(pPwType=None):
         # guest account, can not store password so asks user to input password and also guest acconut can not store any password even encrypted.
 
         if user == "guest":
-print("This is a guest account. The user needs to input password everytime script needs access to server. To permanently store your ")print("encrypted password (so you don't have to enter it everytime, establish non-root non-guest account on this server.")
+            print "This is a guest account. The user needs to input password everytime script needs access to server. To permanently store your "
+            print "encrypted password (so you don't have to enter it everytime, establish non-root non-guest account on this server."
+
             while 1:
                 pwUnEnc = raw_input("Input your " + pwType + "password :", dont_print_statement_back_to_screen)
     
@@ -94,7 +96,14 @@ print("This is a guest account. The user needs to input password everytime scrip
         
         if not os.path.exists(pwEncFilePath):
 
-print("Password file is not found. It is either you are setting up first time or password is deleted.")print("Two options:")print("1.  set your password in this server. The password will be encrypted. This is done only once until password is changed or lost.")print("    if password is changed on the remote server or forgot, delete the file: " + pwEncFilePath + "  and it will ask you to set it up")print("    again.")print("2.  do not set your password in this server. With this option, everytime script needs to access the server needing " + pPwType)print(" password, you'd need to enter it manually.")
+            print "Password file is not found. It is either you are setting up first time or password is deleted."
+            print "Two options:"
+            print "1.  set your password in this server. The password will be encrypted. This is done only once until password is changed or lost."
+            print "    if password is changed on the remote server or forgot, delete the file: " + pwEncFilePath + "  and it will ask you to set it up"
+            print "    again."
+            print "2.  do not set your password in this server. With this option, everytime script needs to access the server needing " + pPwType
+            print " password, you'd need to enter it manually."
+
             while 1:
                 choice = raw_input(" 1 or 2 ?: ")
 
@@ -102,7 +111,8 @@ print("Password file is not found. It is either you are setting up first time or
                     if TEST_MODE == 1:
                         pwUnEnc = "testPassword12345"
                     else:
-print("Password will be encrypted and stored in " + pwEncFilePath)    
+                        print "Password will be encrypted and stored in " + pwEncFilePath
+    
                         while 1:
                             pwUnEnc = getpass.getpass()                           
                             pwUnEnc1 = getpass.getpass()                           
@@ -110,7 +120,8 @@ print("Password will be encrypted and stored in " + pwEncFilePath)
                             if pwUnEnc == pwUnEnc1:
                                 break
                             else:
-print("Password entered does not match. Try again")                        
+                                print "Password entered does not match. Try again"
+                        
                     if debug:
                         printUnEncPw(pwUnEnc)
 
@@ -124,10 +135,12 @@ print("Password entered does not match. Try again")
                         return EXIT_ERR
 
                 elif choice == "2":
-print("Password will not be stored. ")                    pwUnEnc = getpass.getpass()                           
+                    print "Password will not be stored. "
+                    pwUnEnc = getpass.getpass()                           
                     return pwUnEnc
                 else:
-print("invalid choice. Try it again.")
+                    print "invalid choice. Try it again."
+
         # Handled the case of pwFile not exist on this server.
         # Now read back the password and encrypt and sent back to calling function        
     
@@ -142,7 +155,9 @@ print("invalid choice. Try it again.")
         printDbg("your key: ", debug)
 
         if debug:
-print(bytes(key))print("Type/len of key data: " + str(type(key)))
+            print bytes(key)
+            print "Type/len of key data: " + str(type(key))
+
         if fpPwRead == None:
             printErr("Error reading the password file: " + pwEncFilePath)
         else:
@@ -160,14 +175,18 @@ print(bytes(key))print("Type/len of key data: " + str(type(key)))
 
     return pwUnEnc
 
-# print(unencrypted password.)# this will only partially print(the unencrypted password for debugging.)
+# print unencrypted password.
+# this will only partially print the unencrypted password for debugging.
+
 def printUnEncPw(pPwUnEnc):
     
-print("Printing partial password info",)
+    print "Printing partial password info",
+
     if len(pPwUnEnc) >= 6:
         printDbg ("You unencrypted password is : **** " + pPwUnEnc[:-4])
     else:
-printDbg ("Error: can not print(any part of password, it is too short"))
+        printDbg ("Error: can not print any part of password, it is too short")
+
 # This function will input the unencrypted password (visible) and encrypt write to encrypted password to file.
 # At no point unencrypted password should be printed or stored before encryption.
 #
@@ -195,7 +214,8 @@ def setPw(pPwUnEnc, pPwType, pForce=None):
     if  user == "root":
         pwEncFileDir = "/rootpw/"
         printDbg("root account: ", debug)
-print("creating /rootpw/")        os.system("mkdir /rootpw/")
+        print "creating /rootpw/"
+        os.system("mkdir /rootpw/")
     else:
         printDbg("non-root non-guest account: " + user, debug)
         pwEncFileDir = "/home/" + str(user) + "/"
@@ -233,11 +253,14 @@ print("creating /rootpw/")        os.system("mkdir /rootpw/")
     randNo = Random.new().read
     key = RSA.generate(1024, randNo)
     
-# print(key information:)    
+    # print key information:
+    
     printDbg("your key: ", debug)
 
     if debug:
-print(bytes(key))print("Type/len of key data: " + str(type(key)))
+        print bytes(key)
+        print "Type/len of key data: " + str(type(key))
+
     printDbg("can enc/sign/haspriv: " + str(key.can_encrypt()) + "/" + str(key.can_sign()) + "/" + \
         str(key.has_private()), debug)
     
@@ -262,7 +285,8 @@ print(bytes(key))print("Type/len of key data: " + str(type(key)))
     printDbg("your encrypted password: \n", debug)
 
     if debug:
-print(pwEnc)    
+        print pwEnc
+    
     if fpPwWrite == None:
         printErr("Failed to open a file for password storage")
         return RET_EXIT
